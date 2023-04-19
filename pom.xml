@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.nikitalipatov</groupId>
+    <artifactId>lastfm-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>albums</module>
+        <module>artists</module>
+        <module>tracks</module>
+    </modules>
+    <name>lastfm-app</name>
+    <description>lastfm-app</description>
+    <properties>
+        <java.version>17</java.version>
+        <data-redis-version>3.0.4</data-redis-version>
+        <jedis-version>3.3.0</jedis-version>
+        <postgresql-version>42.5.4</postgresql-version>
+        <lastfm-api-version>0.1.2</lastfm-api-version>
+        <lombock-version>1.18.26</lombock-version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${data-redis-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql-version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.u-mass</groupId>
+                <artifactId>lastfm-java</artifactId>
+                <version>${lastfm-api-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombock-version}</version>
+                <optional>true</optional>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
