@@ -22,9 +22,6 @@ public class AlbumDbModel {
     private String releaseDate;
     private int playCount;
     private int listeners;
-//    private String tags; // array? genre?
-//    @OneToMany(mappedBy = "album")
-//    private List<TrackIdDbModel> trackIds;
     @ElementCollection
     @CollectionTable(name = "trackId", joinColumns = @JoinColumn(name = "album_id"))
     private List<String> trackIds;

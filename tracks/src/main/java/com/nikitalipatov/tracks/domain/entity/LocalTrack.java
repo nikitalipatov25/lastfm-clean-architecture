@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
+// TODO: 20.04.2023 проверка на null 
 public class LocalTrack {
 
     private final String id;
