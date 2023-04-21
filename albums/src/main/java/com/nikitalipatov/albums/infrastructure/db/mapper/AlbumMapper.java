@@ -12,13 +12,9 @@ public class AlbumMapper {
         return AlbumDto.builder()
                 .id(albumModel.getId())
                 .name(albumModel.getName())
-                .artist(albumModel.getArtist())
                 .artistId(albumModel.getArtistId())
                 .playCount(albumModel.getPlayCount())
                 .listeners(albumModel.getListeners())
-                .releaseDate(albumModel.getReleaseDate())
-                .trackIds(albumModel.getTrackIdsList())
-                .tagsList(albumModel.getTags())
                 .build();
     }
 
@@ -26,13 +22,9 @@ public class AlbumMapper {
         return AlbumModel.builder()
                 .id(albumDbModel.getId())
                 .name(albumDbModel.getName())
-                .artist(albumDbModel.getArtist())
                 .artistId(albumDbModel.getArtistId())
                 .listeners(albumDbModel.getListeners())
                 .playCount(albumDbModel.getPlayCount())
-                .releaseDate(albumDbModel.getReleaseDate())
-                .tags(albumDbModel.getTagsList())
-                .trackIdsList(albumDbModel.getTrackIds())
                 .build();
     }
 
@@ -40,13 +32,9 @@ public class AlbumMapper {
         return AlbumDbModel.builder()
                 .id(albumModel.getId())
                 .name(albumModel.getName())
-                .artist(albumModel.getArtist())
                 .artistId(albumModel.getArtistId())
                 .listeners(albumModel.getListeners())
                 .playCount(albumModel.getPlayCount())
-                .releaseDate(albumModel.getReleaseDate())
-                .trackIds(albumModel.getTrackIdsList())
-                .tagsList(albumModel.getTags())
                 .build();
     }
 

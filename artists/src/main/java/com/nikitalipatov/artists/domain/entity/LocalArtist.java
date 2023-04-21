@@ -3,12 +3,12 @@ package com.nikitalipatov.artists.domain.entity;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class LocalArtist {
 
     // TODO: 19.04.2023 проверка на null
-    // TODO: 19.04.2023 артист еще должен содержать ссылки на изображение и прочее
 
     private final String id;
     private final String name;
@@ -25,6 +25,9 @@ public class LocalArtist {
     }
 
     public static LocalArtist of(String id, String name, int playCount, int listeners, List<String> genre) {
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
         return new LocalArtist(id, name, playCount, listeners, genre);
     }
 }

@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AlbumDao extends JpaRepository<AlbumDbModel, String> {
     Optional<AlbumDbModel> findByNameAndArtist(String albumName, String artistName);
+    void deleteByNameAndArtist(String albumName, String artistName);
+    boolean existsAlbumDbModelByNameAndArtist(String albumName, String artistName);
 }

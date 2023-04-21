@@ -1,9 +1,11 @@
 package com.nikitalipatov.albums.infrastructure.db.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "album")
@@ -12,20 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AlbumDbModel {
+public class AlbumDbModel implements Serializable {
 
     @Id
     private String id;
     private String name;
-    private String artist;
     private String artistId;
-    private String releaseDate;
     private int playCount;
     private int listeners;
-    @ElementCollection
-    @CollectionTable(name = "trackId", joinColumns = @JoinColumn(name = "album_id"))
-    private List<String> trackIds;
-    @ElementCollection
-    @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "album_id"))
-    private List<String> tagsList;
 }

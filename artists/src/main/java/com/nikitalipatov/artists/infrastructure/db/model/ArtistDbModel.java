@@ -19,5 +19,4 @@ public class ArtistDbModel {
     private String name;
     private int playCount;
     private int listeners;
-    //private List<String> tags;
 }

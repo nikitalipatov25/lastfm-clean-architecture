@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+// TODO: 21.04.2023 add mapstruct
 public class TrackMapper {
 
     public TrackDbModel toEntity(TrackModel trackModel) {
@@ -17,11 +18,8 @@ public class TrackMapper {
                 .name(trackModel.getName())
                 .listeners(trackModel.getListeners())
                 .playCount(trackModel.getPlayCount())
-                .album(trackModel.getAlbum())
                 .albumId(trackModel.getAlbumId())
-                .artist(trackModel.getArtist())
                 .artistId(trackModel.getArtistId())
-                .duration(trackModel.getDuration())
                 .tagsList(trackModel.getTagsList())
                 .build();
     }
@@ -32,11 +30,8 @@ public class TrackMapper {
                 .name(trackModel.getName())
                 .listeners(trackModel.getListeners())
                 .playCount(trackModel.getPlayCount())
-                .duration(trackModel.getDuration())
                 .tagsList(trackModel.getTagsList())
-                .album(trackModel.getAlbum())
                 .albumId(trackModel.getAlbumId())
-                .artist(trackModel.getArtist())
                 .artistId(trackModel.getArtistId())
                 .build();
     }
@@ -51,11 +46,8 @@ public class TrackMapper {
                 .name(trackDbModel.getName())
                 .listeners(trackDbModel.getListeners())
                 .playCount(trackDbModel.getPlayCount())
-                .duration(trackDbModel.getDuration())
                 .tagsList(trackDbModel.getTagsList())
-                .album(trackDbModel.getAlbum())
                 .albumId(trackDbModel.getAlbumId())
-                .artist(trackDbModel.getArtist())
                 .artistId(trackDbModel.getArtistId())
                 .build();
     }
@@ -63,4 +55,5 @@ public class TrackMapper {
     public List<TrackModel> toModel(List<TrackDbModel> trackDbModelList) {
         return trackDbModelList.stream().map(this::toModel).collect(Collectors.toList());
     }
+
 }

@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface ArtistDao extends JpaRepository<ArtistDbModel, String> {
     Optional<ArtistDbModel> findByName(String artistName);
+    boolean existsByName(String artistName);
 }

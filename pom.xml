@@ -16,6 +16,8 @@
         <module>albums</module>
         <module>artists</module>
         <module>tracks</module>
+        <module>common</module>
+        <module>orchestration</module>
     </modules>
     <name>lastfm-app</name>
     <description>lastfm-app</description>
@@ -26,6 +28,7 @@
         <postgresql-version>42.5.4</postgresql-version>
         <lastfm-api-version>0.1.2</lastfm-api-version>
         <lombock-version>1.18.26</lombock-version>
+        <feign-version>4.0.1</feign-version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -50,6 +53,11 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombock-version}</version>
                 <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${feign-version}</version>
             </dependency>
         </dependencies>
 

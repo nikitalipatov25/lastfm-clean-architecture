@@ -1,9 +1,15 @@
 package com.nikitalipatov.tracks.infrastructure.db.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StringCollectionDeserializer;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
+
+import static com.nikitalipatov.common.enums.ModelDbStatus.ACTIVE;
 
 @Entity
 @Table(name = "track")
@@ -12,19 +18,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TrackDbModel {
+public class TrackDbModel implements Serializable {
 
     @Id
     private String id;
     private String name;
-    private int duration;
     private int playCount;
     private int listeners;
-    private String artist;
     private String artistId;
-    private String album;
     private String albumId;
+    @Builder.Default
+    private String status = ACTIVE.name();
     @ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "track_id"))
+    @JsonDeserialize(contentUsing = StringCollectionDeserializer.class)
     private List<String> tagsList;
 }

@@ -1,5 +1,6 @@
 package com.nikitalipatov.tracks.application.port;
 
+import com.nikitalipatov.common.dto.KafkaMessage;
 import com.nikitalipatov.tracks.application.model.TrackModel;
 
 import java.util.List;
@@ -17,5 +18,11 @@ public interface TrackGateway {
     List<TrackModel> getTrackByListeners();
 
     List<TrackModel> getTrackByPlayCount();
+
+    void sendInfo(KafkaMessage kafkaMessage);
+
+    boolean isTrackExists(String trackName, String artistName);
+
+    void deleteTrack(String artistName, String trackName);
 
 }
