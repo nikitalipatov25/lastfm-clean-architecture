@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.nikitalipatov.common.constant.Constants.LISTENERS;
+import static com.nikitalipatov.common.constant.Constants.PLAY_COUNT;
+
 @Service
 @RequiredArgsConstructor
 public class ArtistChartImpl implements ArtistChart {
 
-    private static final String LISTENERS = "listeners";
-    private static final String PLAY_COUNT = "playCount";
     private final ArtistGateway artistGateway;
 
     @Override

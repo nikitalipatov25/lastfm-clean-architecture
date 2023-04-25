@@ -2,14 +2,12 @@ package com.nikitalipatov.albums.domain.entity;
 
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 public class LocalAlbum {
 
     private final String id;
     private final String name;
-    private final String artistId; // artistID может не быть в ответе?
+    private final String artistId;
     private final int playCount;
     private final int listeners;
 

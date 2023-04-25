@@ -3,13 +3,10 @@ package com.nikitalipatov.artists.infrastructure.controller;
 import com.nikitalipatov.artists.application.usecase.ArtistChart;
 import com.nikitalipatov.artists.application.usecase.FindArtist;
 import com.nikitalipatov.artists.application.usecase.LoadArtist;
-import com.nikitalipatov.artists.infrastructure.db.mapper.ArtistMapper;
-import com.nikitalipatov.artists.infrastructure.dto.ArtistDto;
-import com.nikitalipatov.common.dto.OrchestratorDto;
+import com.nikitalipatov.artists.infrastructure.mapper.ArtistConverter;
+import com.nikitalipatov.common.dto.ArtistDto;
 import com.nikitalipatov.common.feign.ArtistClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,20 +20,20 @@ public class ArtistController implements ArtistClient {
     private final FindArtist findArtist;
     private final LoadArtist loadArtist;
     private final ArtistChart artistChart;
-    private final ArtistMapper artistMapper;
+    private final ArtistConverter artistConverter;
 
-    @GetMapping(value = "/get/{artistName}")
-    public ArtistDto searchArtist(@PathVariable String artistName) {
-        return artistMapper.toDto(findArtist.findArtist(artistName));
-    }
-
-    @GetMapping(value = "/chart/{sortParameter}")
-    public List<ArtistDto> getArtistsChartSortedBy(@PathVariable String sortParameter) {
-        return artistMapper.toDto(artistChart.createArtistsChart(sortParameter));
+    @Override
+    public void loadArtist(String artistName, String albumId) {
+        loadArtist.loadArtist(artistName, albumId);
     }
 
     @Override
-    public OrchestratorDto loadArtist(String artistName) {
-        return loadArtist.loadArtist(artistName);
+    public ArtistDto findArtist(String artistName) {
+        return artistConverter.toDto(findArtist.findArtist(artistName));
+    }
+
+    @Override
+    public List<ArtistDto> getArtistsChartSortedBy(String sortParameter) {
+        return artistConverter.toDto(artistChart.createArtistsChart(sortParameter));
     }
 }

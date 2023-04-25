@@ -1,4 +1,4 @@
-package com.nikitalipatov.tracks.infrastructure.dto;
+package com.nikitalipatov.common.dto;
 
 import lombok.*;
 

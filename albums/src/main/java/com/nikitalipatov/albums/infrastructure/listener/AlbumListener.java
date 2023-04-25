@@ -1,5 +1,6 @@
 package com.nikitalipatov.albums.infrastructure.listener;
 
+import com.nikitalipatov.albums.application.usecase.LoadAlbum;
 import com.nikitalipatov.albums.application.usecase.RollbackAlbum;
 import com.nikitalipatov.common.dto.KafkaMessage;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +9,18 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-@KafkaListener(topics = "result", groupId = "lastfm", containerFactory = "kafkaListenerContainerFactory")
 @RequiredArgsConstructor
+@KafkaListener(topics = "command", groupId = "lastfm", containerFactory = "kafkaListenerContainerFactory")
 public class AlbumListener {
 
     private final RollbackAlbum rollbackAlbum;
+    private final LoadAlbum loadAlbum;
 
     @KafkaHandler
-    public void albumHandler(KafkaMessage kafkaMessage) {
-        rollbackAlbum.rollback(kafkaMessage.getArtistName(), kafkaMessage.getAlbumName());
+    public void albumLoadHandler(KafkaMessage kafkaMessage) {
+        switch (kafkaMessage.getEventType()) {
+            case LOAD -> loadAlbum.loadAlbum(kafkaMessage.getArtistName(), kafkaMessage.getAlbumName(), kafkaMessage.getAlbumId());
+            case ROLLBACK -> rollbackAlbum.rollback(kafkaMessage.getAlbumId());
+        }
     }
 }

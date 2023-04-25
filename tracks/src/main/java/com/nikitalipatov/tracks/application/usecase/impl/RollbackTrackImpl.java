@@ -12,8 +12,7 @@ public class RollbackTrackImpl implements RollbackTrack {
     private final TrackGateway trackGateway;
 
     @Override
-    public void rollback(String artistName, String albumName) {
-//        if (trackGateway.isTrackExists())
-        trackGateway.deleteTrack(artistName, albumName);
+    public void rollback(String albumId) {
+        trackGateway.rollbackTrack(albumId);
     }
 }

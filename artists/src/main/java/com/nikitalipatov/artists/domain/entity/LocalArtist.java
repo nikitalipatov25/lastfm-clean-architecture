@@ -8,8 +8,6 @@ import java.util.UUID;
 @Getter
 public class LocalArtist {
 
-    // TODO: 19.04.2023 проверка на null
-
     private final String id;
     private final String name;
     private final int playCount;

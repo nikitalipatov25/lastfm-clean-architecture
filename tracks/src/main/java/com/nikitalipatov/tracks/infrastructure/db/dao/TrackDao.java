@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TrackDao extends JpaRepository<TrackDbModel, String> {
-    Optional<TrackDbModel> findByNameAndArtist(String trackName, String artistName);
-    List<TrackDbModel> findAllByArtist(String artistName);
+    Optional<TrackDbModel> findByNameAndArtistId(String trackName, String artistId);
+    List<TrackDbModel> findAllByArtistId(String artistName);
     List<TrackDbModel> findAllByTagsListIn(List<String> tagList);
-    boolean existsByNameAndArtist(String trackName, String artistName);
-    List<TrackDbModel> findAllByArtistAndAlbum(String artistName, String albumName);
+    boolean existsByNameAndArtistId(String trackName, String artistId);
+    List<TrackDbModel> findAllByAlbumId(String albumId);
 }

@@ -1,8 +1,5 @@
 package com.nikitalipatov.tracks.infrastructure.db.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.StringCollectionDeserializer;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +28,5 @@ public class TrackDbModel implements Serializable {
     private String status = ACTIVE.name();
     @ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "track_id"))
-    @JsonDeserialize(contentUsing = StringCollectionDeserializer.class)
     private List<String> tagsList;
 }

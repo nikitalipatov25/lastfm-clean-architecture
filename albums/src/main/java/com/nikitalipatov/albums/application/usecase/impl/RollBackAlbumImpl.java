@@ -12,7 +12,7 @@ public class RollBackAlbumImpl implements RollbackAlbum {
     private final AlbumGateway albumGateway;
 
     @Override
-    public void rollback(String artistName, String albumName) {
-        albumGateway.delete(artistName, albumName);
+    public void rollback(String albumId) {
+        albumGateway.rollback(albumId);
     }
 }

@@ -6,12 +6,10 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class SomeDto {
+public class GenreDto {
 
-    String artistName;
-    String albumName;
-    List<String> tracksList;
+    private List<String> genreList;
 }

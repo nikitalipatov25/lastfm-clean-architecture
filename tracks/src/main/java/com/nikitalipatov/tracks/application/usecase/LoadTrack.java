@@ -1,10 +1,7 @@
 package com.nikitalipatov.tracks.application.usecase;
 
-import com.nikitalipatov.common.dto.OrchestratorDto;
-
-import java.util.List;
-
 public interface LoadTrack {
 
-    OrchestratorDto loadTrack(String artistName, String albumName, List<String> tracksList);
+    void loadTrack(String artistName, String trackName);
+    void loadAllTracks(String artistName, String albumName);
 }

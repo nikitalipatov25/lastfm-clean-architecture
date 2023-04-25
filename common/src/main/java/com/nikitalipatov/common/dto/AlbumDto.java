@@ -1,8 +1,6 @@
-package com.nikitalipatov.albums.infrastructure.dto;
+package com.nikitalipatov.common.dto;
 
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package com.nikitalipatov.artists.infrastructure.dto;
+package com.nikitalipatov.common.dto;
 
 import lombok.*;
 

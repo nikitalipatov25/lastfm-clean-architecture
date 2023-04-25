@@ -1,7 +1,6 @@
 package com.nikitalipatov.artists.application.port;
 
 import com.nikitalipatov.artists.application.model.ArtistModel;
-import com.nikitalipatov.common.dto.KafkaMessage;
 
 import java.util.List;
 
@@ -9,13 +8,14 @@ public interface ArtistGateway {
 
     ArtistModel save(ArtistModel artistModel);
 
-    ArtistModel getArtistInfo(String artistName);
+    ArtistModel getArtistInfo(String artistId);
 
     List<ArtistModel> getArtistsChartByListeners();
 
     List<ArtistModel> getArtistsChartByPlayCount();
 
-    boolean isArtistExist(String artistName);
+    boolean isArtistExist(String artistId);
 
-    void sendInfo(KafkaMessage kafkaMessage);
+    void sendIfError(String albumId);
+
 }

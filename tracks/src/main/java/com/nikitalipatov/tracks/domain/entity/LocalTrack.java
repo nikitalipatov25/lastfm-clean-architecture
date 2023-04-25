@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-// TODO: 20.04.2023 проверка на null
 public class LocalTrack {
 
-    // artist i album могут не понадобиться, только айди
     private final String id;
     private final String name;
     private final int playCount;
@@ -33,6 +31,9 @@ public class LocalTrack {
                                 String artistId, String albumId, List<String> tagsList) {
         if (id == null) {
             id = UUID.randomUUID().toString();
+        }
+        if (albumId == null) {
+            albumId = UUID.randomUUID().toString();
         }
         return new LocalTrack(id, name, playCount, listeners, artistId, albumId, tagsList);
     }

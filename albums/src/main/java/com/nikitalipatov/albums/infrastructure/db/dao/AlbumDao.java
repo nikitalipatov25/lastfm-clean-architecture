@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface AlbumDao extends JpaRepository<AlbumDbModel, String> {
-    Optional<AlbumDbModel> findByNameAndArtist(String albumName, String artistName);
-    void deleteByNameAndArtist(String albumName, String artistName);
-    boolean existsAlbumDbModelByNameAndArtist(String albumName, String artistName);
+    boolean existsByNameAndArtistId(String albumName, String artistId);
+    Optional<AlbumDbModel> findByName(String albumName);
 }

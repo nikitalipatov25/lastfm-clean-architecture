@@ -1,6 +1,5 @@
 package com.nikitalipatov.tracks.application.port;
 
-import com.nikitalipatov.common.dto.KafkaMessage;
 import com.nikitalipatov.tracks.application.model.TrackModel;
 
 import java.util.List;
@@ -9,9 +8,9 @@ public interface TrackGateway {
 
     TrackModel save(TrackModel trackModel);
 
-    TrackModel getTrackInfo(String artistName, String trackName);
+    TrackModel getTrackInfo(String trackId);
 
-    List<TrackModel> getTracksByArtist(String artistName);
+    List<TrackModel> getTracksByArtist(String artistId);
 
     List<TrackModel> getTracksByGenre(List<String> genreList);
 
@@ -19,10 +18,10 @@ public interface TrackGateway {
 
     List<TrackModel> getTrackByPlayCount();
 
-    void sendInfo(KafkaMessage kafkaMessage);
+    void sendToAlbum(String artistName, String albumName, String albumId);
 
-    boolean isTrackExists(String trackName, String artistName);
+    boolean isTrackExists(String trackId);
 
-    void deleteTrack(String artistName, String trackName);
+    void rollbackTrack(String albumId);
 
 }

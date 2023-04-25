@@ -29,21 +29,6 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic command1() {
-        return new NewTopic("albumCommand", 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic command2() {
-        return new NewTopic("artistCommand", 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic command3() {
-        return new NewTopic("trackCommand", 1, (short) 1);
-    }
-
-    @Bean
     public NewTopic result() {
         return new NewTopic("result", 1, (short) 1);
     }

@@ -1,6 +1,6 @@
 package com.nikitalipatov.artists.infrastructure.listener;
 
-import com.nikitalipatov.artists.application.usecase.FindArtist;
+import com.nikitalipatov.artists.application.usecase.LoadArtist;
 import com.nikitalipatov.common.dto.KafkaMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaHandler;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ArtistListener {
 
-    private final FindArtist findArtist;
+    private final LoadArtist loadArtist;
 
     @KafkaHandler
     public void artistHandler(KafkaMessage kafkaMessage) {
-        findArtist.findArtist(kafkaMessage.getArtistName());
+        loadArtist.loadArtist(kafkaMessage.getArtistName(), kafkaMessage.getAlbumId());
     }
 }

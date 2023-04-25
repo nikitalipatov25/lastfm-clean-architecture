@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.io.Serializable;
 
+import static com.nikitalipatov.common.enums.ModelDbStatus.ACTIVE;
+
 @Entity
 @Table(name = "album")
 @Getter
@@ -22,4 +24,6 @@ public class AlbumDbModel implements Serializable {
     private String artistId;
     private int playCount;
     private int listeners;
+    @Builder.Default
+    private String status = ACTIVE.name();
 }

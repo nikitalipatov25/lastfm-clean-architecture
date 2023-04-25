@@ -3,8 +3,10 @@ package com.nikitalipatov.artists.infrastructure.db.repository;
 import com.nikitalipatov.artists.application.model.ArtistModel;
 import com.nikitalipatov.artists.application.port.ArtistGateway;
 import com.nikitalipatov.artists.infrastructure.db.dao.ArtistDao;
-import com.nikitalipatov.artists.infrastructure.db.mapper.ArtistMapper;
+import com.nikitalipatov.artists.infrastructure.db.model.ArtistDbModel;
+import com.nikitalipatov.artists.infrastructure.mapper.ArtistConverter;
 import com.nikitalipatov.common.dto.KafkaMessage;
+import com.nikitalipatov.common.error.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
@@ -15,37 +17,40 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.nikitalipatov.common.constant.Constants.*;
+
 @Repository
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "artist")
 public class ArtistRepository implements ArtistGateway {
 
     private final ArtistDao artistDao;
-    private final ArtistMapper artistMapper;
+    private final ArtistConverter artistConverter;
     private final KafkaTemplate<String, KafkaMessage> kafkaTemplate;
 
     @Override
-    @CachePut(key = "#artistModel.name")
+    @CachePut(key = "#artistModel.id")
     public ArtistModel save(ArtistModel artistModel) {
-        var artist = artistMapper.toEntity(artistModel);
-        return artistMapper.toModel(artistDao.save(artist));
-    }
-
-    // TODO: 19.04.2023 custom exception
-    @Override
-    @Cacheable(key = "#artistName")
-    public ArtistModel getArtistInfo(String artistName) {
-        return artistMapper.toModel(artistDao.findByName(artistName).orElseThrow(() -> new RuntimeException("No artist")));
+        var artist = artistConverter.toEntity(artistModel);
+        return artistConverter.toModel(artistDao.save(artist));
     }
 
     @Override
+    @Cacheable(key = "#artistId")
+    public ArtistModel getArtistInfo(String artistId) {
+        return artistConverter.toModel(getArtistById(artistId));
+    }
+
+    @Override
+    @Cacheable
     public List<ArtistModel> getArtistsChartByListeners() {
-        return artistMapper.toModel(artistDao.findAll(Sort.by(Sort.Direction.DESC, "listeners")));
+        return artistConverter.toModel(artistDao.findAll(Sort.by(Sort.Direction.DESC, LISTENERS)));
     }
 
     @Override
+    @Cacheable
     public List<ArtistModel> getArtistsChartByPlayCount() {
-        return artistMapper.toModel(artistDao.findAll(Sort.by(Sort.Direction.DESC, "playCount")));
+        return artistConverter.toModel(artistDao.findAll(Sort.by(Sort.Direction.DESC, PLAY_COUNT)));
     }
 
     @Override
@@ -54,7 +59,15 @@ public class ArtistRepository implements ArtistGateway {
     }
 
     @Override
-    public void sendInfo(KafkaMessage kafkaMessage) {
-        kafkaTemplate.send("result", kafkaMessage);
+    public void sendIfError(String albumId) {
+        var message = KafkaMessage.builder()
+                .albumId(albumId)
+                .build();
+        kafkaTemplate.send(RESULT_TOPIC, message);
+    }
+
+    private ArtistDbModel getArtistById(String artistId) {
+        return artistDao.findById(artistId)
+                .orElseThrow(() -> new ResourceNotFoundException("No artist with id " + artistId));
     }
 }
